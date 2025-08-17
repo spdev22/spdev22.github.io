@@ -1,36 +1,667 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio - Ezequiel Pinheiro</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Portfolio - SPDev</title>
+
+    <!-- Fuente Neue Montreal -->
+    <style>
+        @font-face {
+            font-family: 'Neue Montreal';
+            src: url('fonts/NeueMontreal-Light.woff2') format('woff2'),
+                url('fonts/NeueMontreal-Light.woff') format('woff');
+            font-weight: 100;
+            font-style: light;
+        }
+
+        @font-face {
+            font-family: 'Neue Montreal';
+            src: url('fonts/NeueMontreal-Regular.woff2') format('woff2'),
+                url('fonts/NeueMontreal-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Neue Montreal', sans-serif;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .contact-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .contact-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            color: #fff;
+            text-decoration: none;
+            width: 150px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .contact-card i {
+            margin-bottom: 0.5rem;
+            color: #ffc850;
+            /* color destacado de iconos */
+            transition: color 0.3s;
+        }
+
+        .contact-card span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+
+        @media (max-width: 768px) {
+            .contact-cards {
+                gap: 1rem;
+            }
+
+            .contact-card {
+                width: 120px;
+                padding: 1rem 1.5rem;
+            }
+        }
+
+
+        body {
+            background: #0f0f0f;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            justify-content: end;
+            /* centra el grid dentro del contenedor */
+            align-items: start;
+            gap: 2rem;
+            width: 100%;
+            /* limita ancho máximo del grid */
+            margin-left: 30%;
+            /* centra horizontalmente */
+        }
+
+        .project-card {
+            min-width: 250px;
+            min-height: 250px;
+            /* asegura que no se estiren demasiado */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 300px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .project-card h2 {
+            font-size: 1.3rem;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tech-icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-icons i {
+            font-size: 1.2rem;
+            color: #ffc832;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+
+
+        .container {
+            width: 95%;
+            height: 95%;
+            border: 1px solid #fff;
+            position: relative;
+            overflow: hidden;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        #bgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            border-radius: 12px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: 100;
+            margin-bottom: 1rem;
+        }
+
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 2rem;
+            line-height: 30px;
+        }
+
+        ol {
+            list-style-type: none;
+        }
+
+        nav a {
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 400;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .subtitle {
+
+            font-size: 16px;
+            /* más pequeño que el nombre */
+            font-weight: 200;
+            color: rgba(255, 255, 255, 0.7);
+            /* un poco más suave */
+            margin-top: 0.2rem;
+        }
+
+
+        /* Caja de presentación */
+        .presentation div {
+            position: absolute;
+            bottom: 0;
+            font-weight: 200;
+            right: 0;
+            width: 15%;
+            /* sigue estando en la mitad inferior */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* ahora el contenido se pega a la izquierda */
+
+            padding: 1rem;
+            z-index: 1;
+        }
+
+        .presentation div h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .presentation div p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #fff;
+            text-align: left;
+            word-break: break-word;
+            /* por si queda muy angosto */
+        }
+
+        nav a:hover {
+            color: rgba(255, 200, 50, 0.9);
+        }
+
+        nav a::before {
+            content: '';
+            display: inline-block;
+
+            border-radius: 50%;
+            background-color: #00d1ff;
+            margin-right: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        nav a.active::before {
+            opacity: 1;
+        }
+
+        section {
+            display: none;
+            flex: 1;
+            justify-content: left;
+            align-items: left;
+            text-align: left;
+            animation: fade 0.7s ease-in-out;
+
+        }
+
+        section.active {
+            display: flex;
+        }
+
+        section#contact {
+
+            justify-content: end;
+            align-items: end;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        .nav-cv {
+            background: #facc15;
+            /* amarillo */
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .nav-cv:hover {
+            background: #fbbf24;
+            transform: scale(1.05);
+        }
+
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+            max-width: 600px;
+        }
+
+        .about-container h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-container p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .about-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .about-details .detail {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .about-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            padding: 2rem;
+        }
+
+        .about-content {
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .btn-cv {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            margin-top: 1rem;
+            background: #facc15;
+            color: #000;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .btn-cv:hover {
+            background: #fbbf24;
+            transform: scale(1.05);
+        }
+
+        /* Ajuste para pantallas chicas */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 30px;
+                font-weight: 100;
+                margin-bottom: 1rem;
+            }
+
+            .projects-grid {
+                margin-left: 0;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            .presentation div {
+                width: 60%;
+                /* que use más ancho en móvil */
+                height: auto;
+                /* que no quede gigante vertical */
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .presentation div p {
+                font-size: 1rem;
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+
 </head>
+
 <body>
-    <header>
-        <h1>Hola, soy Ezequiel Pinheiro</h1>
-        <p>Desarrollador Backend</p>
-    </header>
-    
-    <main>
-        <section>
-            <h2>Sobre mí</h2>
-            <p>Breve descripción de quién eres y qué haces.</p>
-        </section>
+    <div class="container">
+        <canvas id="bgCanvas"></canvas>
+        <div class="content">
 
-        <section>
-            <h2>Proyectos</h2>
-            <ul>
-                <li><a href="https://github.com/tuusuario/proyecto1">Proyecto 1</a> - Breve descripción.</li>
-                <li><a href="https://github.com/tuusuario/proyecto2">Proyecto 2</a> - Breve descripción.</li>
-            </ul>
-        </section>
+            <div class="logo">Ezequiel Pinheiro
+                <div class="subtitle">Web Software Developer</div>
+            </div>
+            <nav>
+                <ol>
+                    <li><a onclick="showSection('home')">Home</a></li>
+                    <li><a onclick="showSection('projects')">Proyectos</a></li>
+                    <li><a onclick="showSection('contact')">Contacto</a></li>
+                    <li><a onclick="showSection('about')">Sobre mi</a></li>
 
-        <section>
-            <h2>Contacto</h2>
-            <p>Email: tuemail@gmail.com</p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/tuusuario">linkedin.com/in/tuusuario</a></p>
-        </section>
-    </main>
+                </ol>
+            </nav>
+
+            <section id="home" class="active presentation">
+                <div>
+                    <p>Backend Developer especializado en .NET Core y Node.js. Construyo APIs y sistemas escalables con
+                        código limpio.</p>
+                </div>
+            </section>
+
+            <section id="about">
+                <div class="about-container">
+                    <p>Soy Ezequiel, Backend Developer especializado en .NET Core y Node.js. Me apasiona construir APIs
+                        escalables,
+                        código limpio y soluciones que faciliten la vida de los usuarios.</p>
+
+                    <div class="about-details">
+                        <div class="detail">
+                            <strong>Experiencia:</strong> 2 años en desarrollo backend
+                        </div>
+                        <div class="detail">
+                            <strong>Habilidades:</strong> .NET Core, Node.js, SQL Server, MongoDB
+                        </div>
+                        <div class="detail">
+                            <strong>Intereses:</strong> Tecnología, arquitectura de software, optimización de código
+                        </div>
+                    </div>
+                    <a href="cv_ezequiel.pdf" download class="btn-cv">Descargar CV</a>
+                </div>
+            </section>
+
+            <section id="projects">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h2>Control de Gastos Personales</h2>
+                        <p>Aplicación MVC en .NET Core para gestión de finanzas personales.</p>
+                        <div class="tech-icons">
+                            <i class="fab fa-microsoft" title=".NET Core"></i>
+                            <i class="fas fa-database" title="SQL Server"></i>
+                            <i class="fas fa-code" title="Entity Framework"></i>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h2>API de Alquiler de Propiedades</h2>
+                        <p>API REST en Node.js + MongoDB para administrar inmuebles y rankings.</p>
+                        <div class="tech-icons">
+                            <i class="fab fa-microsoft" title=".NET Core"></i>
+                            <i class="fas fa-database" title="SQL Server"></i>
+                            <i class="fas fa-code" title="Entity Framework"></i>
+
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h2>Portfolio Personal</h2>
+                        <p>Mi propio portfolio web usando HTML, CSS, JS y animaciones elegantes.</p>
+                        <div class="tech-icons">
+                            <i class="fab fa-microsoft" title=".NET Core"></i>
+                            <i class="fas fa-database" title="SQL Server"></i>
+                            <i class="fas fa-code" title="Entity Framework"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="contact-container">
+                    <div class="contact-cards">
+                        <a href="mailto:spdev@email.com" class="contact-card" target="_blank">
+                            <i class="fa-solid fa-envelope fa-2x"></i>
+                            <span>Email</span>
+                        </a>
+                        <a href="https://linkedin.com/in/tuusuario" class="contact-card" target="_blank">
+                            <i class="fa-brands fa-linkedin fa-2x"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/spdev22" class="contact-card" target="_blank">
+                            <i class="fa-brands fa-github fa-2x"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        showSection('home');
+        function showSection(id) {
+            document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+
+            const navLinks = document.querySelectorAll("nav a");
+            navLinks.forEach(a => {
+                if (a.getAttribute("onclick") === `showSection('${id}')`) {
+                    a.dataset.originalText = a.textContent;
+                    a.textContent = '•';
+                    a.style.color = '#ffc850'
+
+                } else {
+                    if (a.dataset.originalText) {
+                        a.textContent = a.dataset.originalText;
+                        a.style.color = '#fff';
+                    }
+                }
+            });
+        }
+
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const PARTICLE_COUNT = 300;
+        const LINE_DISTANCE = 120;
+        const MARGIN = 100;
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                baseSize: Math.random() * 1.5 + 0.5,
+                size: Math.random() * 2 + 0.5,
+                vx: (Math.random() - 0.5) * 0.2, // velocidad más lenta
+                vy: (Math.random() - 0.5) * 0.2,
+                brightness: 0.5,
+                destelloFrames: 0
+            });
+        }
+
+        function drawCircle(p) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+            ctx.shadowBlur = p.brightness * 40;
+            ctx.shadowColor = `rgba(255,200,50,0.9)`;
+
+            ctx.fillStyle = `rgba(255,200,50,${Math.min(p.brightness, 1)})`;
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // wrap-around
+                if (p.x < -MARGIN) p.x = canvas.width + MARGIN;
+                if (p.x > canvas.width + MARGIN) p.x = -MARGIN;
+                if (p.y < -MARGIN) p.y = canvas.height + MARGIN;
+                if (p.y > canvas.height + MARGIN) p.y = -MARGIN;
+
+                // destellos
+                if (Math.random() < 0.0001 && p.destelloFrames === 0) {
+                    p.destelloFrames = 300;
+                    p.targetSize = p.baseSize * Math.random() * 5 + 1;
+                    p.targetBrightness = 1;
+                }
+
+                if (p.destelloFrames > 0) {
+                    p.size += (p.targetSize - p.size) * 0.01;
+                    p.brightness += (p.targetBrightness - p.brightness) * 0.01;
+                    p.destelloFrames--;
+                } else {
+                    p.size += (p.baseSize - p.size) * 0.01;
+                    p.brightness += ((0) - p.brightness) * 0.02; // cuando no brillan, bajan a 0
+                }
+
+                drawCircle(p);
+            });
+
+            // líneas
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < LINE_DISTANCE) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255,180,50,${(1 - dist / LINE_DISTANCE) * (0.5 + (p1.brightness + p2.brightness) / 4)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+    <script src="https://kit.fontawesome.com/e21d512686.js" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
