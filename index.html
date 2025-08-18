@@ -33,6 +33,8 @@
 
         html,
         body {
+            letter-spacing: 1.2px;
+
             padding: 0;
             margin: 0;
 
@@ -130,6 +132,8 @@
             height: 100vh;
         }
 
+
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -219,7 +223,8 @@
         }
 
         .logo {
-            font-size: 40px;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
             font-weight: 100;
             margin-bottom: 1rem;
         }
@@ -248,7 +253,8 @@
 
         .subtitle {
 
-            font-size: 16px;
+            font-size: 14px;
+            letter-spacing: 1.2px;
             /* más pequeño que el nombre */
             font-weight: 200;
             color: rgba(255, 255, 255, 0.7);
@@ -261,8 +267,10 @@
         .presentation div {
             position: absolute;
             bottom: 0;
-            font-weight: 200;
+            font-weight: 100;
+            line-break: loose;
             right: 0;
+            min-width: auto;
             width: 15%;
             /* sigue estando en la mitad inferior */
             display: flex;
@@ -274,6 +282,8 @@
             z-index: 1;
         }
 
+
+
         .presentation div h1 {
             font-size: 3rem;
             margin: 0 0 1rem 0;
@@ -281,9 +291,15 @@
             line-height: 1.2;
         }
 
-        .presentation div p {
+        .presentation div span {
+            font-weight: 400;
+            line-height: 30px;
+        }
+
+        .presentation div p,
+        .presentation div span {
             font-size: 1.2rem;
-            line-height: 1.5;
+            letter-spacing: 1.2px;
             color: #fff;
             text-align: left;
             word-break: break-word;
@@ -292,6 +308,34 @@
 
         nav a:hover {
             color: rgba(255, 200, 50, 0.9);
+        }
+
+        .icon {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .icon::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 4px 6px;
+            border-radius: 5px;
+            cursor: none;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .icon:hover::after {
+            opacity: 1;
         }
 
         nav a::before {
@@ -384,6 +428,11 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 0.5rem 1rem;
             border-radius: 8px;
+        }
+
+        .about-details .detail strong {
+            font-weight: bold;
+            letter-spacing: 1.2px;
         }
 
         .about-section {
@@ -526,60 +575,78 @@
 
             <section id="home" class="active presentation">
                 <div>
-                    <p>Backend Developer especializado en .NET Core y Node.js. Construyo APIs y sistemas escalables con
-                        código limpio.</p>
+                    <span>
+                        Software Developer
+                    </span>
+
+                    <p>
+                        Apasionado por la tecnología en todas sus formas, siempre explorando nuevas ideas y avances que
+                        optimicen procesos y mejoran la experiencia de los usuarios.
+                    </p>
                 </div>
             </section>
 
             <section id="about">
                 <div class="about-container">
-                    <p>Soy Ezequiel, Backend Developer especializado en .NET Core y Node.js. Me apasiona construir APIs
-                        escalables,
-                        código limpio y soluciones que faciliten la vida de los usuarios.</p>
+                    <p>
+                        Desde que empecé a programar, me interesa crear software eficiente, útil y fácil de
+                        mantener. Me he especializado en crear servicios web y APIs, aplicando buenas prácticas y
+                        patrones de arquitectura como MVC.
+                    <p>
+                        Más allá del software, me apasiona la tecnología en general: explorar nuevas herramientas,
+                        avances innovadores y soluciones que puedan mejorar la vida de las personas.
+                    </p>
 
                     <div class="about-details">
                         <div class="detail">
-                            <strong>Experiencia:</strong> 2 años en desarrollo backend
+                            <strong>Experiencia:</strong> 2 años de práctica en el desarrollo de software y servicios
+                            web
                         </div>
                         <div class="detail">
-                            <strong>Habilidades:</strong> .NET Core, Node.js, SQL Server, MongoDB
+                            <strong>Habilidades:</strong> .NET Core, Node.js, SQL Server, Angular.
                         </div>
                         <div class="detail">
-                            <strong>Intereses:</strong> Tecnología, arquitectura de software, optimización de código
+                            <strong>Intereses:</strong> Tecnología, innovación, optimización de código y arquitectura de
+                            software
                         </div>
                     </div>
+
                     <a href="cv_ezequiel.pdf" download class="btn-cv">Descargar CV</a>
                 </div>
             </section>
 
             <section id="projects">
                 <div class="projects-grid">
-                    <div class="project-card">
+                    <div class="project-card" onclick="window.open('https://github.com/spdev22/gastos', '_blank')">
                         <h2>Control de Gastos Personales</h2>
                         <p>Aplicación MVC en .NET Core para gestión de finanzas personales.</p>
                         <div class="tech-icons">
-                            <i class="fab fa-microsoft" title=".NET Core"></i>
-                            <i class="fas fa-database" title="SQL Server"></i>
-                            <i class="fas fa-code" title="Entity Framework"></i>
+                            <i class="icon fab fa-microsoft" title=".NET Core"></i>
+                            <i class="icon fas fa-database" title="SQL Server"></i>
+                            <i class="icon fas fa-code" title="Entity Framework"></i>
                         </div>
+
                     </div>
-                    <div class="project-card">
+
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/ezepdev/api-alquiler-propiedades', '_blank')">
                         <h2>API de Alquiler de Propiedades</h2>
                         <p>API REST en Node.js + MongoDB para administrar inmuebles y rankings.</p>
                         <div class="tech-icons">
-                            <i class="fab fa-microsoft" title=".NET Core"></i>
-                            <i class="fas fa-database" title="SQL Server"></i>
-                            <i class="fas fa-code" title="Entity Framework"></i>
+                            <i class="icon fab fa-microsoft" title=".NET Core"></i>
+                            <i class="icon fas fa-database" title="SQL Server"></i>
+                            <i class="icon fas fa-code" title="Entity Framework"></i>
 
                         </div>
                     </div>
-                    <div class="project-card">
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/ezepdev/api-alquiler-propiedades', '_blank')">
                         <h2>Portfolio Personal</h2>
                         <p>Mi propio portfolio web usando HTML, CSS, JS y animaciones elegantes.</p>
                         <div class="tech-icons">
-                            <i class="fab fa-microsoft" title=".NET Core"></i>
-                            <i class="fas fa-database" title="SQL Server"></i>
-                            <i class="fas fa-code" title="Entity Framework"></i>
+                            <i class="icon fab fa-microsoft" title=".NET Core"></i>
+                            <i class="icon fas fa-database" title="SQL Server"></i>
+                            <i class="icon fas fa-code" title="Entity Framework"></i>
                         </div>
                     </div>
                 </div>
@@ -588,11 +655,12 @@
             <section id="contact">
                 <div class="contact-container">
                     <div class="contact-cards">
-                        <a href="mailto:spdev@email.com" class="contact-card" target="_blank">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=edjpinheiro@gmail.com"
+                            class="contact-card" target="_blank">
                             <i class="fa-solid fa-envelope fa-2x"></i>
                             <span>Email</span>
                         </a>
-                        <a href="https://linkedin.com/in/tuusuario" class="contact-card" target="_blank">
+                        <a href="https://linkedin.com/in/ezepdev" class="contact-card" target="_blank">
                             <i class="fa-brands fa-linkedin fa-2x"></i>
                             <span>LinkedIn</span>
                         </a>
