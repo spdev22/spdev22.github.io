@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Portfolio - SPDev</title>
 
     <!-- Fuente Neue Montreal -->
@@ -29,6 +29,28 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Neue Montreal', sans-serif;
+        }
+
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        body {
+            background: linear-gradient(to top, rgba(255, 0, 0, 0.2) env(safe-area-inset-bottom), transparent 0);
+
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+
+            /* Soporte para navegadores más viejos */
+            padding-top: constant(safe-area-inset-top);
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-left: constant(safe-area-inset-left);
+            padding-right: constant(safe-area-inset-right);
         }
 
         .contact-container {
@@ -102,7 +124,6 @@
         body {
             background: #0f0f0f;
             color: #fff;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -168,7 +189,7 @@
 
         .container {
             width: 95%;
-            height: 95%;
+            height: 90%;
             border: 1px solid #fff;
             position: relative;
             overflow: hidden;
@@ -397,6 +418,53 @@
 
         /* Ajuste para pantallas chicas */
         @media (max-width: 768px) {
+            body {
+                /* overflow: hidden; */
+                /* quitamos esto */
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                min-height: 100vh;
+                /* que no centre verticalmente todo */
+
+                /* altura mínima para ocupar la pantalla */
+                background: #0f0f0f;
+                color: #fff;
+                padding: 2rem 0;
+                /* opcional para que no quede pegado */
+            }
+
+            .presentation div {
+                position: relative;
+                bottom: 0;
+                right: 0;
+
+            }
+
+            section#home {
+                justify-content: center;
+            }
+
+            section#projects {
+                padding: 20px;
+            }
+
+            .container {
+                width: 95%;
+                height: 95%;
+                /* mejor que sea auto */
+                min-height: 90vh;
+                border: 1px solid #fff;
+                position: relative;
+                overflow: auto;
+                /* solo el canvas queda recortado */
+                padding: 2.5rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                margin: auto;
+            }
+
             .logo {
                 font-size: 30px;
                 font-weight: 100;
@@ -412,12 +480,9 @@
             }
 
             .presentation div {
-                width: 60%;
+                width: 80%;
                 /* que use más ancho en móvil */
                 height: auto;
-                /* que no quede gigante vertical */
-                bottom: 1rem;
-                right: 1rem;
             }
 
             .presentation div p {
@@ -574,7 +639,7 @@
         resizeCanvas();
 
         const particles = [];
-        const PARTICLE_COUNT = 300;
+        const PARTICLE_COUNT = 100;
         const LINE_DISTANCE = 120;
         const MARGIN = 100;
 
